@@ -60,7 +60,7 @@ complex_value_input = str(input())
 complex_value_elements = complex_value_input.split()
 complex_value = complex(float(complex_value_elements[0]), float(complex_value_elements[2]))
 
-#Display anwser and write it to text file
+#Displays anwser and write it to text file
 for value in values:
     index = values.index(value)
     create_julia_set(value, complex_value)

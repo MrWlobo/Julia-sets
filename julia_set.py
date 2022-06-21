@@ -1,5 +1,5 @@
 import pygame
-from variables import WIDTH, HEIGHT, WINDOW_SCALE, WIN, BLACK
+from variables import WIDTH, HEIGHT, WINDOW_SCALE, WIN, WINDOW_SIZE, BLACK
 
 #Positions of pixels
 pixels = []
@@ -14,11 +14,11 @@ for i in range(WIDTH // WINDOW_SCALE * HEIGHT // WINDOW_SCALE):
         imaginary_number += 1
 
 #Imaginary and real values of pixels
-BASE_VALUE = 200
+BASE_VALUE = WINDOW_SIZE * 2
 values = []
 imaginary_value = BASE_VALUE
 real_value = -1 * BASE_VALUE
-change_value = 16
+change_value = WINDOW_SCALE * 8
 iterations = 0
 
 for pixel in pixels:
@@ -32,22 +32,22 @@ for pixel in pixels:
 
 output = []
 
-def create_julia_set(value, c):
+def create_julia_set(value, complex_value):
     z = complex(value[0]/BASE_VALUE*2, value[1]/BASE_VALUE*2) #Check for every pixel
     is_in_set = False
     solutions = []
 
     while is_in_set == False:
-        solution = (z * z) + c
+        solution = (z*z) + complex_value
 
         if solution.real >= 2 or solution.imag >= 2:
             #Point is not in set
             output.append(".")
             break
 
-        if len(solutions) > 5 and len(solutions) < 10:
-            #Point might be in set
-            output.append("o")
+        # Point might be in set
+        if len(solutions) > 6:
+            output.append("1")
             break
 
         z = solution
@@ -56,7 +56,7 @@ def create_julia_set(value, c):
             if sol == solution:
                 #Point is in set
                 is_in_set = True
-                output.append("0")
+                output.append("1")
         solutions.append(solution)
 
 def select_point(event):
@@ -65,9 +65,8 @@ def select_point(event):
             mouse_position = pygame.mouse.get_pos()
             WIN.fill(BLACK)
             output.clear()
-            complex_value = complex(float(mouse_position[0]/BASE_VALUE - 1), float(-1 * (mouse_position[1]/BASE_VALUE - 1)))
+            complex_value = complex(float(2*mouse_position[0]/WINDOW_SIZE - 1), float(-2*(mouse_position[1]/WINDOW_SIZE) + 1))
 
             #Displays anwser and write it to text file
             for value in values:
-                index = values.index(value)
                 create_julia_set(value, complex_value)

@@ -1,5 +1,5 @@
 import pygame
-from variables import WIDTH, WIN, black_pixel
+from variables import WIDTH, WIN, SPRITE_SIZE, green_pixel
 from julia_set import output, select_point
 
 pygame.display.set_caption("Julia sets displayer")
@@ -8,8 +8,8 @@ def value_choice():
     index = 0
     for char in output:
         if char != ".":
-            WIN.blit(black_pixel, (int(index) % int(WIDTH), index // WIDTH))
-        index += 15
+            WIN.blit(green_pixel, (int(index) % int(WIDTH), index // WIDTH))
+        index += SPRITE_SIZE
 
 def update(event):
     select_point(event)

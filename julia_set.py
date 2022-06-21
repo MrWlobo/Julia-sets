@@ -13,6 +13,7 @@ for i in range(WIDTH // WINDOW_SCALE * HEIGHT // WINDOW_SCALE):
         real_number = 0
         imaginary_number += 1
 
+
 #Imaginary and real values of squares
 BASE_VALUE = WINDOW_SIZE * 2
 values = []

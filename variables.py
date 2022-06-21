@@ -2,10 +2,12 @@ import pygame
 
 #Measures
 WINDOW_SIZE = 800
+
 WIDTH, HEIGHT, BOTTOM_SURFACE_HEIGHT = WINDOW_SIZE, WINDOW_SIZE, WINDOW_SIZE // 8
 WINDOW_SCALE = 2
 SQUARE_SIZE = WINDOW_SIZE // 200
 PADDING = 10
+
 
 #Window
 WIN = pygame.display.set_mode((WIDTH, HEIGHT + BOTTOM_SURFACE_HEIGHT))
@@ -13,6 +15,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT + BOTTOM_SURFACE_HEIGHT))
 #Colors
 BLACK = (0, 0, 0)
 GREEN = (15, 210, 45)
+
 GREY = (45, 45, 45)
 
 #Sprites

@@ -1,19 +1,20 @@
 import pygame
-from variables import WIDTH, HEIGHT, WINDOW_SCALE, WIN, WINDOW_SIZE, BLACK
+from variables import WIDTH, HEIGHT, WINDOW_SCALE, WIN, WINDOW_SIZE, BLACK, chosen_values
 
-#Positions of pixels
-pixels = []
+#Positions of squares
+squares = []
 real_number, imaginary_number = 0, 0 #Position X, Position Y
 
-#Give every pixel a positiom
+#Give every square a positiom
 for i in range(WIDTH // WINDOW_SCALE * HEIGHT // WINDOW_SCALE):
-    pixels.append((real_number, imaginary_number))
+    squares.append((real_number, imaginary_number))
     real_number += 1
     if real_number == WIDTH:
         real_number = 0
         imaginary_number += 1
 
-#Imaginary and real values of pixels
+
+#Imaginary and real values of squares
 BASE_VALUE = WINDOW_SIZE * 2
 values = []
 imaginary_value = BASE_VALUE
@@ -21,7 +22,7 @@ real_value = -1 * BASE_VALUE
 change_value = WINDOW_SCALE * 8
 iterations = 0
 
-for pixel in pixels:
+for square in squares:
     values.append((real_value, imaginary_value))
     real_value += change_value
     iterations += 1
@@ -33,7 +34,7 @@ for pixel in pixels:
 output = []
 
 def create_julia_set(value, complex_value):
-    z = complex(value[0]/BASE_VALUE*2, value[1]/BASE_VALUE*2) #Check for every pixel
+    z = complex(value[0]/BASE_VALUE*2, value[1]/BASE_VALUE*2) #Check for every square
     is_in_set = False
     solutions = []
 
@@ -63,10 +64,13 @@ def select_point(event):
     if event.type == pygame.MOUSEBUTTONDOWN:
         if pygame.mouse.get_pressed()[0]:
             mouse_position = pygame.mouse.get_pos()
-            WIN.fill(BLACK)
-            output.clear()
-            complex_value = complex(float(2*mouse_position[0]/WINDOW_SIZE - 1), float(-2*(mouse_position[1]/WINDOW_SIZE) + 1))
+            #Proceed if clicked on displaying surface
+            if mouse_position[1] < HEIGHT:
+                WIN.fill(BLACK)
+                output.clear()
+                complex_value = complex(float(4*mouse_position[0]/WINDOW_SIZE - 2), float(-4*(mouse_position[1]/WINDOW_SIZE) + 2))
+                chosen_values[0], chosen_values[1] = str(complex_value.real), str(complex_value.imag)
 
-            #Displays anwser and write it to text file
-            for value in values:
-                create_julia_set(value, complex_value)
+                #Displays anwser and write it to text file
+                for value in values:
+                    create_julia_set(value, complex_value)
